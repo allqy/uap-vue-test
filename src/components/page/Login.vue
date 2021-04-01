@@ -90,8 +90,15 @@ export default {
                         ygbh: this.param.username,
                         ygmm: this.param.password
                     }).then(res => {
-                        console.log(res)
-                    },err => {
+                        //console.log(res);
+                        if (res.status !== 200) {
+                            return this.$message.error(res.data.msg);
+                        }else{
+                            this.$message.success('登录成功');
+                            setSessionStorageItem('ms_username',res.data.body.ygbh);
+                            this.$router.push('/');
+                        }
+                    },err=>{
                         console.log(err)
                     });
                 } else {
