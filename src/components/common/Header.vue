@@ -50,6 +50,7 @@
 </template>
 <script>
 import bus from '../common/bus';
+import {clearSessionStorage} from '../../utils/session_storage'
 export default {
     data() {
         return {
@@ -61,7 +62,7 @@ export default {
     },
     computed: {
         username() {
-            let username = localStorage.getItem('ms_username');
+            let username = this.$store.getters.getUserInfo.ygmc;
             return username ? username : this.name;
         }
     },
@@ -69,7 +70,7 @@ export default {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
-                localStorage.removeItem('ms_username');
+                clearSessionStorage();
                 this.$router.push('/login');
             }
         },

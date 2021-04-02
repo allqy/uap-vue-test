@@ -50,7 +50,7 @@ export default {
         return {
             param: {
                 username: 'admin',
-                password: '123123',
+                password: '123',
                 code: ''
             },
             rules: {
@@ -67,7 +67,8 @@ export default {
                 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');//候选字符
             for (let i = 0; i < 4; i++ ) {
-                let charNum = Math.floor(Math.random() * 62);//获取随机验证码下标
+                //let charNum = Math.floor(Math.random() * 62);//获取随机验证码下标
+                let charNum = Math.floor(Math.random() * 10);
                 this.identifyCode += codeChars[charNum];//根据下标获取指定字符并拼接
             }
         },
@@ -90,12 +91,10 @@ export default {
                         ygbh: this.param.username,
                         ygmm: this.param.password
                     }).then(res => {
-                        //console.log(res);
-                        if (res.status !== 200) {
-                            return this.$message.error(res.data.msg);
-                        }else{
+                        if (res.statusCodeValue == 200) {
                             this.$message.success('登录成功');
-                            setSessionStorageItem('ms_username',res.data.body.ygbh);
+                            setSessionStorageItem('ms_username',JSON.stringify(res.body));
+                            this.$store.commit("setUserInfo", JSON.stringify(res.body));
                             this.$router.push('/');
                         }
                     },err=>{
