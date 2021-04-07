@@ -93,6 +93,7 @@ export default {
                     }).then(res => {
                         if (res.statusCodeValue == 200) {
                             this.$message.success('登录成功');
+                            console.log(res);
                             setSessionStorageItem('ms_username',JSON.stringify(res.body));
                             this.$store.commit("setUserInfo", JSON.stringify(res.body));
                             this.$router.push('/');

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Message,Loading} from 'element-ui';
+import {setSessionStorageItem,getSessionStorageItem} from './session_storage';
 
 const service = axios.create({
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
@@ -43,6 +44,11 @@ export function tryHideFullScreenLoading() {
 
 service.interceptors.request.use(
     config => {
+        let storageToken = getSessionStorageItem("token");
+        if(storageToken){
+            console.log("sessionStorage token="+storageToken);
+            config.headers.Authorization = storageToken;
+        }
         showFullScreenLoading()
         return config;
     },
@@ -56,6 +62,10 @@ service.interceptors.response.use(
     response => {
         //console.log(response)
         if (response.status === 200) {
+            if (response.headers && response.headers.token) {
+                console.log("刷新token 成功", response.headers.token);
+                setSessionStorageItem("token", response.headers.token);
+            }
             tryHideFullScreenLoading()
             return response.data;
         } else {
