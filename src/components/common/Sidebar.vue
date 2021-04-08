@@ -151,7 +151,7 @@ export default {
                     title: '支持作者'
                 },
                 {
-                    icon: 'el-icon-lx-redpacket_fill',
+                    icon: 'el-icon-user',
                     index: '/userManagement',
                     title: '人员管理'
                 }

@@ -21,10 +21,10 @@
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column type="selection" width="55" align="center"></el-table-column>
-                <el-table-column prop="ygbh" label="员工编号" width="55" align="center"></el-table-column>
-                <el-table-column prop="ygmc" label="员工名称"></el-table-column>
-                <el-table-column prop="lxdh" label="联系电话"></el-table-column>
-                <el-table-column prop="qzglStr" label="是否管理员"></el-table-column>
+                <el-table-column prop="ygbh" label="员工编号" align="center"></el-table-column>
+                <el-table-column prop="ygmc" label="员工名称" align="center"></el-table-column>
+                <el-table-column prop="lxdh" label="联系电话" align="center"></el-table-column>
+                <el-table-column prop="qzglStr" label="是否管理员" align="center"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
                         <el-button
@@ -47,7 +47,7 @@
                     layout="total, prev, pager, next"
                     :current-page="query.pageIndex"
                     :page-size="query.pageSize"
-                    :total="pageTotal"
+                    :total="totalCount"
                     @current-change="handlePageChange"
                 ></el-pagination>
             </div>
@@ -86,7 +86,7 @@ export default {
             multipleSelection: [],
             delList: [],
             editVisible: false,
-            pageTotal: 0,
+            totalCount: 0,
             form: {},
             idx: -1,
             id: -1
@@ -109,11 +109,11 @@ export default {
                     pageSize: this.query.pageSize
                 }
             }).then(res => {
-                if (res.statusCodeValue == 200) {
-                    console.log(res);
-                }
+                console.log(res);
+                this.tableData = res.list;
+                this.totalCount = res.total;
             },err=>{
-                console.log(err)
+                console.log(err);
             });
         },
         // 触发搜索按钮

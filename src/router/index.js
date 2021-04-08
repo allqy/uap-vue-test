@@ -106,7 +106,7 @@ export default new Router({
                 {
                     path: '/userManagement',
                     component: () => import(/* webpackChunkName: "donate" */ '../components/page/userManagement.vue'),
-                    meta: { title: '人员管理' }
+                    meta: { title: '人员管理', permission: true}
                 }
             ]
         },

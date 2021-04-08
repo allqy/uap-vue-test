@@ -6,7 +6,7 @@ export function setSessionStorageItem(k,v){
 
 //获取 window.sessionStorage.getItem
 export function getSessionStorageItem(k){
-    window.sessionStorage.getItem(k)
+    return window.sessionStorage.getItem(k)
 }
 
 //清空 sessionStorage

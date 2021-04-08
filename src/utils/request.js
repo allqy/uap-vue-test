@@ -44,11 +44,7 @@ export function tryHideFullScreenLoading() {
 
 service.interceptors.request.use(
     config => {
-        let storageToken = getSessionStorageItem("token");
-        if(storageToken){
-            console.log("sessionStorage token="+storageToken);
-            config.headers.Authorization = storageToken;
-        }
+        config.headers.Authorization = getSessionStorageItem("token");
         showFullScreenLoading()
         return config;
     },
@@ -63,7 +59,6 @@ service.interceptors.response.use(
         //console.log(response)
         if (response.status === 200) {
             if (response.headers && response.headers.token) {
-                console.log("刷新token 成功", response.headers.token);
                 setSessionStorageItem("token", response.headers.token);
             }
             tryHideFullScreenLoading()

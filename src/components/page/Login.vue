@@ -84,9 +84,6 @@ export default {
                         this.refreshCode();
                         return false;
                     }
-                    /*this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');*/
                     service.post('/login',{
                         ygbh: this.param.username,
                         ygmm: this.param.password
